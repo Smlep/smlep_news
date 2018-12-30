@@ -1,5 +1,6 @@
-from product_hunt import *
 from github import *
+from guardian import *
+from product_hunt import *
 from weather import *
 from datetime import datetime, timedelta
 
@@ -24,9 +25,16 @@ def gather_gh():
 
 
 def gather_weather():
-    weather = get_weather('6455259')
+    weathers = gather_weathers('6455259')
 
-    print(weather)
+    for weather in weathers:
+        print(weather)
 
 
-gather_weather()
+def gather_guardian():
+    articles = get_articles()
+
+    print(articles.json())
+
+
+gather_guardian()

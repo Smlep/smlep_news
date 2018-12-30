@@ -1,3 +1,6 @@
+from _datetime import datetime
+
+
 class Weather:
     def __init__(self, weather_json):
         self.temperature = weather_json['main']['temp']
@@ -5,21 +8,16 @@ class Weather:
         self.humidity = weather_json['main']['humidity']
         self.temperature_min = weather_json['main']['temp_min']
         self.temperature_max = weather_json['main']['temp_max']
-        self.weather_name = weather_json['weather']['name']
-        self.city = City(weather_json['name'], weather_json['id'],
-                         (weather_json['coord']['lat'], weather_json['coord']['lon']))
+        try:
+            self.time = weather_json['dt_txt']
+        except KeyError:
+            self.time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.conditions = []
+        for condition in weather_json['weather']:
+            self.conditions.append(Condition(condition))
 
     def __str__(self):
-        return self.weather_name + ' (' + self.temperature + '°C)'
-
-    def short_string(self):
-        res = ''
-        res += self.weather_name
-        res += ' ('
-        res += self.temperature + '°C) '
-        res += ' in '
-        res += self.city
-        return res
+        return self.conditions[0].description + ' (' + str(self.temperature) + '°C) at ' + self.time
 
 
 class City:
@@ -30,3 +28,11 @@ class City:
 
     def __str__(self):
         return self.name
+
+
+class Condition:
+    def __init__(self, condition_json):
+        self.id = condition_json['id']
+        self.group = condition_json['main']
+        self.description = condition_json['description']
+        self.icon_id = condition_json['icon']
