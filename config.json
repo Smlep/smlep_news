@@ -1,6 +1,6 @@
 {
   "DEFAULT": {
     "PH_KEY": "product hunt key",
-    "WEATHER_KEY": "weather key"
+    "WEATHER_KEY": "open weather map key"
   }
 }
