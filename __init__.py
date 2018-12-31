@@ -32,9 +32,10 @@ def gather_weather():
 
 
 def gather_guardian():
-    articles = get_articles()
+    articles = get_recent_random_articles(3)
 
-    print(articles.json())
+    for article in articles:
+        print(article)
 
 
 gather_guardian()
