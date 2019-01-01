@@ -1,5 +1,6 @@
 from github import *
 from guardian import *
+from mail import *
 from product_hunt import *
 from weather import *
 from datetime import datetime, timedelta
@@ -25,7 +26,7 @@ def gather_gh():
 
 
 def gather_weather():
-    weathers = gather_weathers('6455259')
+    weathers = gather_weathers()
 
     for weather in weathers:
         print(weather)
@@ -38,4 +39,4 @@ def gather_guardian():
         print(article)
 
 
-gather_guardian()
+prepare_mail('smlep.pro@gmail.com')

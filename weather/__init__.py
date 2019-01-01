@@ -12,7 +12,7 @@ base = 'http://api.openweathermap.org/data/2.5/'
 def gather_weathers(city):
     current = get_weather(city)
     nexts = get_forecast(city)
-    nexts.pop(0)
+    #nexts.pop(0)
     weathers = [current]
     weathers.extend(nexts)
     return weathers
@@ -39,4 +39,5 @@ def get_forecast(city):
     for forecast in r.json()['list']:
         forecasts.append(Weather(forecast))
 
+    forecasts = forecasts[:6]
     return forecasts
