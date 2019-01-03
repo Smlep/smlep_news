@@ -39,4 +39,4 @@ def gather_guardian():
         print(article)
 
 
-prepare_mail('smlep.pro@gmail.com')
+prepare_mail('smlep.pro@gmail.com', 5)

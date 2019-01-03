@@ -1,5 +1,4 @@
 import smtplib
-from datetime import datetime, timedelta
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from .format import *
@@ -20,7 +19,7 @@ def send(target, msg):
     server.quit()
 
 
-def prepare_mail(target):
+def prepare_mail(target, size):
     subject = 'SmlepNews on ' + today.strftime("%Y-%m-%d")
 
     msg = MIMEMultipart()
@@ -33,7 +32,11 @@ def prepare_mail(target):
     body = ""
     body += format_weather()
     body += '<br>'
-    body += format_ph()
+    body += format_ph(size)
+    body += '<br>'
+    body += format_gh(size)
+    body += '<br>'
+    body += format_guardian(size)
 
     msg.attach(MIMEText(body, 'html', 'utf-8'))
 
