@@ -19,7 +19,7 @@ def send(target, msg):
     server.quit()
 
 
-def prepare_mail(target, size):
+def prepare_mail(target, size, lg='en'):
     subject = 'SmlepNews on ' + today.strftime("%Y-%m-%d")
 
     msg = MIMEMultipart()
@@ -30,13 +30,16 @@ def prepare_mail(target, size):
     msg['Content-Type'] = 'text/plain; charset=UTF-8'
 
     body = ""
-    body += format_weather()
+    body += format_weather(lg)
     body += '<br>'
-    body += format_ph(size)
+    body += format_ph(size, lg)
     body += '<br>'
-    body += format_gh(size)
+    body += format_gh(size, lg)
     body += '<br>'
-    body += format_guardian(size)
+    if lg == 'en':
+        body += format_guardian(size)
+    if lg == 'fr':
+        body += format_figaro(size)
 
     msg.attach(MIMEText(body, 'html', 'utf-8'))
 

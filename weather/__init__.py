@@ -39,5 +39,5 @@ def get_forecast(city):
     for forecast in r.json()['list']:
         forecasts.append(Weather(forecast))
 
-    forecasts = forecasts[:6]
+    forecasts = forecasts[:5]
     return forecasts
