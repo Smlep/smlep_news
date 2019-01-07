@@ -54,8 +54,6 @@ def get_mails():
             print('Database connection closed.')
 
 
-def send_all(size):
+def send_all(size, lg='en'):
     for mail in get_mails():
-        prepare_mail(mail, size)
-
-
+        prepare_mail(mail, size, lg)
