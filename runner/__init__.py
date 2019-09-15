@@ -4,7 +4,7 @@ from configparser import ConfigParser
 from mail import prepare_mail
 
 
-def config(filename='runner/database.ini', section='postgresql'):
+def config(filename="runner/database.ini", section="postgresql"):
     # create a parser
     parser = ConfigParser()
     # read config file
@@ -17,7 +17,9 @@ def config(filename='runner/database.ini', section='postgresql'):
         for param in params:
             db[param[0]] = param[1]
     else:
-        raise Exception('Section {0} not found in the {1} file'.format(section, filename))
+        raise Exception(
+            "Section {0} not found in the {1} file".format(section, filename)
+        )
 
     return db
 
@@ -30,14 +32,14 @@ def get_mails():
         params = config()
 
         # connect to the PostgreSQL server
-        print('Connecting to the PostgreSQL database...')
+        print("Connecting to the PostgreSQL database...")
         conn = psycopg2.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
 
         # execute a statement
-        cur.execute('SELECT email from mail;')
+        cur.execute("SELECT email from mail;")
         mails = cur.fetchall()
         res = []
         for mail in mails:
@@ -51,9 +53,9 @@ def get_mails():
     finally:
         if conn is not None:
             conn.close()
-            print('Database connection closed.')
+            print("Database connection closed.")
 
 
-def send_all(size, lg='en'):
+def send_all(size, lg="en"):
     for mail in get_mails():
         prepare_mail(mail, size, lg)

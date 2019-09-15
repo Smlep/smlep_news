@@ -1,21 +1,21 @@
 class Repository:
     def __init__(self, repo_json):
-        self.name = repo_json['name']
-        self.author = repo_json['owner']['login']
-        self.description = repo_json['description']
-        self.stars = repo_json['stargazers_count']
-        self.url = repo_json['html_url']
+        self.name = repo_json["name"]
+        self.author = repo_json["owner"]["login"]
+        self.description = repo_json["description"]
+        self.stars = repo_json["stargazers_count"]
+        self.url = repo_json["html_url"]
 
     def __str__(self):
         return self.name
 
     def short_string(self):
-        res = ''
+        res = ""
         res += self.name
-        res += ' ('
+        res += " ("
         res += str(self.stars)
-        res += '): '
+        res += "): "
         res += self.description
-        res += ' author: '
+        res += " author: "
         res += self.author
         return res
