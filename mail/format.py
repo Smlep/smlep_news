@@ -11,6 +11,9 @@ city_name = "Paris"
 city_id = "6455259"
 
 
+def link(name, target):
+    return '<a href="' + target + '"> ' + name + "</a>"
+
 def format_weather(lg="en"):
     res = ""
     if lg == "en":
@@ -43,7 +46,7 @@ def format_ph(size, lg="en"):
         )
     )
     for product in products[:size]:
-        res += '<a href="' + product.url + '"> ' + product.name + "</a>: "
+        res += link(product.name, product.url) + ": "
         res += product.description
         res += "<br>"
     return res
@@ -67,7 +70,7 @@ def format_gh(size, lg="en"):
         )
     )
     for repo in repos[:size]:
-        res += '<a href="' + repo.url + '">' + repo.name + "</a>"
+        res += link(repo.name, repo.url)
         if repo.description is not None:
             res += ": " + repo.description
         res += "<br>"
@@ -78,7 +81,7 @@ def format_guardian(size):
     res = "Recent news<br>"
     articles = get_recent_random_articles(size)
     for article in articles:
-        res += '<a href="' + article.url + '">' + article.title + "</a><br>"
+        res += link(article.url, article.title) + "<br>"
     return res
 
 
@@ -86,7 +89,7 @@ def format_figaro(size, long=False):
     res = "Articles récents<br>"
     articles = get_figaro_articles()
     for article in articles[:size]:
-        res += '<a href="' + article.url + '">' + article.title + "</a>"
+        res += link(article.url, article.title)
         if long:
             res += ": " + article.summary
         res += "<br>"
