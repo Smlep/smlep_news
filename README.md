@@ -47,4 +47,7 @@ To send mails, you need an email account, it is already configured for `gmail` s
 - `MAIL.USERNAME`
 - `MAIL.PASSWORD`
 
+Why and How I created this project
+==================================
 
+I wrote a small post about this project on my [GitHub Page](https://smlep.github.io), you can read it [here](https://smlep.github.io/jekyll/update/2019/02/01/smlepnews.html).
