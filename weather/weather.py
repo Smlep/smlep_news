@@ -40,5 +40,5 @@ class Condition:
     def __init__(self, condition_json):
         self.id = condition_json["id"]
         self.group = condition_json["main"]
-        self.description = condition_json["description"]
+        self.description = condition_json["description"].title()
         self.icon_id = condition_json["icon"]

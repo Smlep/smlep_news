@@ -26,7 +26,7 @@ def format_weather(lg="en"):
         res += "{}: {}°C / {} / {}% {}".format(
             weather.time[10:-3].replace(":", "h"),
             weather.temperature,
-            weather.conditions[0].description.title(),
+            weather.conditions[0].description,
             weather.humidity,
             suffix,
         )
