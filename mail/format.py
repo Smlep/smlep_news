@@ -20,22 +20,22 @@ def link(name, target):
 
 def format_weather(lg="en"):
     res = ""
+    suffix = ""
     if lg == "en":
         res += "Weather in " + city_name + "<br>"
+        suffix = "humidity<br>"
     if lg == "fr":
         res += "Météo à " + city_name + "<br>"
+        suffix = "d'humidité<br>"
     weathers = gather_weathers(city_id)
     for weather in weathers:
-        res += "{}: {}°C / {} / {}% ".format(
+        res += "{}: {}°C / {} / {}% {}".format(
             weather.time[10:-3].replace(":", "h"),
             weather.temperature,
             weather.conditions[0].description.title(),
             weather.humidity,
+            suffix,
         )
-        if lg == "en":
-            res += "humidity<br>"
-        if lg == "fr":
-            res += "d'humidité<br>"
     return res
 
 
