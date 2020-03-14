@@ -1,7 +1,8 @@
 from figaro import *
-from guardian import *
 from github import *
+from guardian import *
 from product_hunt import *
+from tools import build_list_from_request
 from weather import *
 
 today = datetime.now()
@@ -13,6 +14,7 @@ city_id = "6455259"
 
 def link(name, target):
     return '<a href="' + target + '"> ' + name + "</a>"
+
 
 def format_weather(lg="en"):
     res = ""
@@ -40,10 +42,10 @@ def format_ph(size, lg="en"):
         res += "Top products from yesterday<br>"
     if lg == "fr":
         res += "Meilleurs produits d'hier<br>"
-    products = build_products_from_request(
+    products = build_list_from_request(
         get_top_scores(
             yesterday.strftime("%Y"), yesterday.strftime("%m"), yesterday.strftime("%d")
-        )
+        ), "posts", Product
     )
     for product in products[:size]:
         res += link(product.name, product.url) + ": "
@@ -58,7 +60,7 @@ def format_gh(size, lg="en"):
         res += "Top repos from yesterday<br>"
     if lg == "fr":
         res += "Meilleurs dépôts GitHub d'hier<br>"
-    repos = build_repo_from_request(
+    repos = build_list_from_request(
         get_trending_repo(
             " ",
             yesterday.strftime("%Y"),
@@ -67,7 +69,7 @@ def format_gh(size, lg="en"):
             today.strftime("%Y"),
             today.strftime("%m"),
             today.strftime("%d"),
-        )
+        ), "items", Repository
     )
     for repo in repos[:size]:
         res += link(repo.name, repo.url)
@@ -81,7 +83,7 @@ def format_guardian(size):
     res = "Recent news<br>"
     articles = get_recent_random_articles(size)
     for article in articles:
-        res += link(article.url, article.title) + "<br>"
+        res += link(article.title, article.url) + "<br>"
     return res
 
 
@@ -89,7 +91,7 @@ def format_figaro(size, long=False):
     res = "Articles récents<br>"
     articles = get_figaro_articles()
     for article in articles[:size]:
-        res += link(article.url, article.title)
+        res += link(article.title, article.url)
         if long:
             res += ": " + article.summary
         res += "<br>"
