@@ -7,8 +7,6 @@ def get_figaro_articles():
     entries = news_feed.entries
     entry = news_feed.entries[1]
 
-    print(entry.keys())
-
     res = []
     for entry in entries:
         res.append(FigArticle(entry))

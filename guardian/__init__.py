@@ -11,9 +11,12 @@ apiKey = config["DEFAULT"]["GUARDIAN_KEY"]
 base = "https://content.guardianapis.com/"
 
 
+def build_base_query(year, month, day):
+    return "{}search?from-date={}-{}-{}".format(base, year, month, day)
+
+
 def get_articles_count(year, month, day):
-    url = base + "search"
-    url += "?from-date=" + year + "-" + month + "-" + day
+    url = build_base_query(year, month, day)
     url += "&page-size=1"
     url += "&api-key=" + apiKey
 
@@ -22,8 +25,7 @@ def get_articles_count(year, month, day):
 
 
 def get_articles(year, month, day):
-    url = base + "search"
-    url += "?from-date=" + year + "-" + month + "-" + day
+    url = build_base_query(year, month, day)
     url += "&page-size=200"
     url += "&api-key=" + apiKey
 

@@ -19,14 +19,8 @@ def link(name, target):
 
 
 def format_weather(lg="en"):
-    res = ""
-    suffix = ""
-    if lg == "en":
-        res += "Weather in " + city_name + "<br>"
-        suffix = "humidity<br>"
-    if lg == "fr":
-        res += "Météo à " + city_name + "<br>"
-        suffix = "d'humidité<br>"
+    res = "{} {}<br>".format("Météo à" if lg == "fr" else "Weather in", city_name)
+    suffix = "d'humidité<br>" if lg == "fr" else "humidity<br>"
     weathers = gather_weathers(city_id)
     for weather in weathers:
         res += "{}: {}°C / {} / {}% {}".format(
