@@ -8,24 +8,17 @@ def two_digits(n):
     return format(int(n), "02d")
 
 
-def get_trending_repo(key, year_from, month_from, day_from, year_to, month_to, day_to):
+def get_trending_repo(key, from_date, to_date):
     url = base + "search/repositories?q=" + key
-    url += (
-        "+created:"
-        + two_digits(year_from)
-        + "-"
-        + two_digits(month_from)
-        + "-"
-        + two_digits(day_from)
+    url += "+created:{}-{}-{}..{}-{}-{}".format(
+        two_digits(from_date[0]),
+        two_digits(from_date[1]),
+        two_digits(from_date[2]),
+        two_digits(to_date[0]),
+        two_digits(to_date[1]),
+        two_digits(to_date[2]),
     )
-    url += (
-        ".."
-        + two_digits(year_to)
-        + "-"
-        + two_digits(month_to)
-        + "-"
-        + two_digits(day_to)
-    )
+
     url += "&sort=stars"
     url += "&order=desc"
     r = requests.get(url)

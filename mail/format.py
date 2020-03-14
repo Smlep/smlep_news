@@ -68,12 +68,12 @@ def format_gh(size, lg="en"):
     repos = build_list_from_request(
         get_trending_repo(
             " ",
-            yesterday.strftime("%Y"),
-            yesterday.strftime("%m"),
-            yesterday.strftime("%d"),
-            today.strftime("%Y"),
-            today.strftime("%m"),
-            today.strftime("%d"),
+            [
+                yesterday.strftime("%Y"),
+                yesterday.strftime("%m"),
+                yesterday.strftime("%d"),
+            ],
+            [today.strftime("%Y"), today.strftime("%m"), today.strftime("%d")],
         ),
         "items",
         Repository,

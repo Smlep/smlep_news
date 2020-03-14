@@ -10,12 +10,6 @@ class Repository:
         return self.name
 
     def short_string(self):
-        res = ""
-        res += self.name
-        res += " ("
-        res += str(self.stars)
-        res += "): "
-        res += self.description
-        res += " author: "
-        res += self.author
-        return res
+        return "{} ({}): {} author: {}".format(
+            self.name, self.stars, self.description, self.author
+        )

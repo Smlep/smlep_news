@@ -9,12 +9,6 @@ class Product:
         return self.name
 
     def short_string(self):
-        res = ""
-        res += self.name
-        res += " ("
-        res += str(self.votes)
-        res += "): "
-        res += self.description
-        res += " url: "
-        res += self.url
-        return res
+        return "{} ({}): {} url: {}".format(
+            self.name, self.votes, self.description, self.url
+        )
