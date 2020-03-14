@@ -30,11 +30,3 @@ def get_trending_repo(key, year_from, month_from, day_from, year_to, month_to, d
     url += "&order=desc"
     r = requests.get(url)
     return r
-
-
-def build_repo_from_request(request):
-    json_repos = request.json()["items"]
-    repos = []
-    for json_repo in json_repos:
-        repos.append(Repository(json_repo))
-    return repos

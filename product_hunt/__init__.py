@@ -29,11 +29,3 @@ def get_top_scores(year, month=0, day=0, count=50):
     }
     r = requests.get(url, headers=headers)
     return r
-
-
-def build_products_from_request(request):
-    json_products = request.json()["posts"]
-    products = []
-    for json_product in json_products:
-        products.append(Product(json_product))
-    return products
