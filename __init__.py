@@ -1,4 +1,4 @@
-from mail import *
+from mail import prepare_mail
 from datetime import datetime, timedelta
 
 yesterday = datetime.now() - timedelta(1)

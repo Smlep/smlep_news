@@ -1,9 +1,11 @@
-from figaro import *
-from github import *
-from guardian import *
-from product_hunt import *
+from datetime import datetime, timedelta
+
+from figaro import get_figaro_articles
+from github import get_trending_repo, Repository
+from guardian import get_recent_random_articles
+from product_hunt import get_top_scores, Product
 from tools import build_list_from_request
-from weather import *
+from weather import gather_weathers
 
 today = datetime.now()
 yesterday = today - timedelta(1)
@@ -24,15 +26,16 @@ def format_weather(lg="en"):
         res += "Météo à " + city_name + "<br>"
     weathers = gather_weathers(city_id)
     for weather in weathers:
-        res += weather.time[10:-3].replace(":", "h") + ": "
-        res += str(weather.temperature) + "°C / "
-        res += weather.conditions[0].description.title() + " / "
-        res += str(weather.humidity) + "% "
+        res += "{}: {}°C / {} / {}% ".format(
+            weather.time[10:-3].replace(":", "h"),
+            weather.temperature,
+            weather.conditions[0].description.title(),
+            weather.humidity,
+        )
         if lg == "en":
-            res += "humidity"
+            res += "humidity<br>"
         if lg == "fr":
-            res += "d'humidité"
-        res += "<br>"
+            res += "d'humidité<br>"
     return res
 
 
@@ -45,7 +48,9 @@ def format_ph(size, lg="en"):
     products = build_list_from_request(
         get_top_scores(
             yesterday.strftime("%Y"), yesterday.strftime("%m"), yesterday.strftime("%d")
-        ), "posts", Product
+        ),
+        "posts",
+        Product,
     )
     for product in products[:size]:
         res += link(product.name, product.url) + ": "
@@ -69,7 +74,9 @@ def format_gh(size, lg="en"):
             today.strftime("%Y"),
             today.strftime("%m"),
             today.strftime("%d"),
-        ), "items", Repository
+        ),
+        "items",
+        Repository,
     )
     for repo in repos[:size]:
         res += link(repo.name, repo.url)
