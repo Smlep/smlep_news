@@ -34,7 +34,7 @@ API KEYS
 ========
 
 This program uses APIs from different sources, and some of them require authentication.
-You'll have to provided API Keys in `config.json`:
+You'll have to provide API Keys in `config.json`:
 
 - `DEFAULT.PH_KEY`: Product Hunt Api Key.
 - `DEFAULT.WEATHER_KEY`: Open Weather Map Api Key.
