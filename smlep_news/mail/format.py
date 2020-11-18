@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 from figaro import get_figaro_articles
-from github import get_trending_repo, Repository
+from github import get_trending_repos, Repository
 from guardian import get_recent_random_articles
 from product_hunt import get_top_scores, Product
 from tools import build_list_from_request
@@ -60,14 +60,10 @@ def format_gh(size, lg="en"):
     if lg == "fr":
         res += "Meilleurs dépôts GitHub d'hier<br>"
     repos = build_list_from_request(
-        get_trending_repo(
+        get_trending_repos(
             " ",
-            [
-                yesterday.strftime("%Y"),
-                yesterday.strftime("%m"),
-                yesterday.strftime("%d"),
-            ],
-            [today.strftime("%Y"), today.strftime("%m"), today.strftime("%d")],
+            yesterday,
+            today,
         ),
         "items",
         Repository,

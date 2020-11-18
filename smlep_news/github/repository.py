@@ -6,8 +6,8 @@ class Repository:
         self.stars = repo_json["stargazers_count"]
         self.url = repo_json["html_url"]
 
-    def __str__(self):
-        return self.name
+    def __repr__(self):
+        return "Repository: {}".format(self.name)
 
     def short_string(self):
         return "{} ({}): {} author: {}".format(

@@ -1,25 +1,19 @@
 import requests
 from .repository import Repository
+from smlep_news.tools import build_list_from_request
 
 base = "https://api.github.com/"
 
 
-def two_digits(n):
-    return format(int(n), "02d")
-
-
-def get_trending_repo(key, from_date, to_date):
+def get_trending_repos(key, from_date, to_date, count=30):
+    if count > 100:
+        raise ValueError(
+            "More than 100 items cannot be retrieved in one page, got {}".format(count)
+        )
     url = base + "search/repositories?q=" + key
-    url += "+created:{}-{}-{}..{}-{}-{}".format(
-        two_digits(from_date[0]),
-        two_digits(from_date[1]),
-        two_digits(from_date[2]),
-        two_digits(to_date[0]),
-        two_digits(to_date[1]),
-        two_digits(to_date[2]),
+    url += "+created:{}..{}".format(
+        from_date.strftime("%Y-%m-%d"), to_date.strftime("%Y-%m-%d")
     )
-
-    url += "&sort=stars"
-    url += "&order=desc"
+    url += "&sort=stars&order=desc&per_page={}".format(count)
     r = requests.get(url)
-    return r
+    return build_list_from_request(r, "items", Repository)
