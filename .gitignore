@@ -2,3 +2,6 @@
 *__pycache__*
 .DS_STORE
 env/
+smlep_news/config.json
+*.egg-info/
+*.egg

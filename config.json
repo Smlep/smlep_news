@@ -1,7 +1,0 @@
-{
-  "DEFAULT": {
-    "PH_KEY": "product hunt key",
-    "WEATHER_KEY": "open weather map key",
-    "GUARDIAN_KEY": "the guardian key"
-  }
-}
