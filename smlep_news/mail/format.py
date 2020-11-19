@@ -59,15 +59,13 @@ def format_gh(size, lg="en"):
         res += "Top repos from yesterday<br>"
     if lg == "fr":
         res += "Meilleurs dépôts GitHub d'hier<br>"
-    repos = build_list_from_request(
-        get_trending_repos(
-            " ",
-            yesterday,
-            today,
-        ),
-        "items",
-        Repository,
+    repos = get_trending_repos(
+        " ",
+        yesterday,
+        today,
+        size
     )
+
     for repo in repos[:size]:
         res += link(repo.name, repo.url)
         if repo.description is not None:
