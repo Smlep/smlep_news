@@ -34,6 +34,9 @@ def format_weather(lg="en"):
 
 
 def format_ph(size, lg="en"):
+    raise DeprecationWarning(
+        "Deprecated method, mails are not handled throught this package anymore"
+    )
     res = ""
     if lg == "en":
         res += "Top products from yesterday<br>"
@@ -59,12 +62,7 @@ def format_gh(size, lg="en"):
         res += "Top repos from yesterday<br>"
     if lg == "fr":
         res += "Meilleurs dépôts GitHub d'hier<br>"
-    repos = get_trending_repos(
-        " ",
-        yesterday,
-        today,
-        size
-    )
+    repos = get_trending_repos(" ", yesterday, today, size)
 
     for repo in repos[:size]:
         res += link(repo.name, repo.url)

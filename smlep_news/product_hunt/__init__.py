@@ -1,31 +1,42 @@
 import json
 import requests
+
 from .product import Product
-
-with open("config.json", "r") as f:
-    config = json.load(f)
-
-base = "https://api.producthunt.com/v1/"
-developer_token = config["DEFAULT"]["PH_KEY"]
+from smlep_news.tools import build_list_from_request
 
 
-def get_top_scores(year, month=0, day=0, count=50):
-    url = (
-        base
-        + "posts/all?sort_by=votes_count&order=desc&search[featured_year]="
-        + str(year)
+base = "https://api.producthunt.com/v2"
+
+
+def get_access_token(client_id, client_secret):
+    url = "{}/oauth/token".format(base)
+    r = requests.post(
+        url,
+        json={
+            "client_id": client_id,
+            "client_secret": client_secret,
+            "grant_type": "client_credentials",
+        },
     )
-    if month != 0:
-        url += "&search[featured_month]=" + str(month)
-    if day != 0:
-        url += "&search[featured_day]=" + str(day)
-    if count != 50:
-        url += "&per_page=" + str(count)
+    r.raise_for_status()
+    return r.json()["access_token"]
+
+
+def get_top_scores(client_id, client_secret, from_date, count=10):
+    token = get_access_token(client_id, client_secret)
+    url = base + "/api/graphql"
     headers = {
         "Accept": "application/json",
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + developer_token,
+        "Authorization": "Bearer " + token,
         "Host": "api.producthunt.com",
     }
-    r = requests.get(url, headers=headers)
-    return r
+    # .format() does not handles well {} in strings, falling back to %s
+    body = {
+        "query": 'query { posts( first: %s postedAfter: "%s" ) {   edges {    node {  id  name description tagline url votesCount }  } } } '
+        % (count, from_date.strftime("%Y-%m-%dT%H:%M:%S.%f%z"))
+    }
+
+    r = requests.post(url, json=body, headers=headers)
+    r.raise_for_status()
+    return [Product(p["node"]) for p in r.json()["data"]["posts"]["edges"]]
