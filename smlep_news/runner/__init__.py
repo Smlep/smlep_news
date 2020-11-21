@@ -1,5 +1,7 @@
 #!/usr/bin/python
 import psycopg2
+import sys
+
 from configparser import ConfigParser
 from mail import prepare_mail
 
@@ -49,7 +51,7 @@ def get_mails():
         cur.close()
         return res
     except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+        print(error, file=sys.stderr)
     finally:
         if conn is not None:
             conn.close()
