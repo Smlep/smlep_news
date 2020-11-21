@@ -17,6 +17,12 @@ Currently the gathered news are the following:
 - Trending repos from [GitHub](https://github.com)
 - News from [Guardian](https://www.theguardian.com) or [Le Figaro](http://www.lefigaro.fr) depending on the language you decide to use (`en` or `fr`)
 
+The package can be installed with:
+
+```
+pip install smlep_news
+```
+
 Architecture
 ============
 
@@ -30,8 +36,8 @@ This project is divided in different packages:
 - `runner`: gathers e-mail addresses from a database and send the gathered news through e-mails. This package configuration is relative to my own setup, if you want to use this program, you should bring changes to this package (or not use it).
 - `weather`: fetches weather from [Open Weather Map](https://openweathermap.org). To choose the city you have to provide an ID, a list of city IDs can be downloaded [here](http://bulk.openweathermap.org/sample/).
 
-API KEYS
-========
+Credentials
+===========
 
 This program uses APIs from different sources, and some of them require authentication.
 You'll have to provide API Keys in environment variables:
