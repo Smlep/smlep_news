@@ -4,7 +4,7 @@
 Essential
 =========
 
-This project is a simple gatherer of different news I found interesting.
+This package is a simple gatherer of different news from various APIs.
 
 Currently, it sends all news gathered through e-mails to all the mail addresses from a database.
 
