@@ -8,9 +8,9 @@ This project is a simple gatherer of different news I found interesting.
 
 Currently, it sends all news gathered through e-mails to all the mail addresses from a database.
 
-To simply send a mail to a target without using any database, use the function `prepare_mail` from `mail`.
+To send a simple mail to a target without using any database, use the function `prepare_mail` from `mail`.
 
-Currently the gathered News are the following:
+Currently the gathered news are the following:
 
 - Weather from [Open Weather Map](https://openweathermap.org)
 - Top products from [Product Hunt](https://www.producthunt.com)
@@ -34,19 +34,21 @@ API KEYS
 ========
 
 This program uses APIs from different sources, and some of them require authentication.
-You'll have to provide API Keys in `config.json`:
+You'll have to provide API Keys in environment variables:
 
-- `DEFAULT.PH_KEY`: Product Hunt Api Key.
-- `DEFAULT.WEATHER_KEY`: Open Weather Map Api Key.
-- `DEFAULT.GUARDIAN_KEY`: Guardian Api Key.
+- `PH_CLIENT_ID`/`PH_CLIENT_SECRET`: Product Hunt Api Client Id/Client Secret.
+- `WEATHER_KEY`: Open Weather Map Api Key.
+- `GUARDIAN_KEY`: Guardian Api Key.
 
 All these keys can be obtained freely.
 
-To send mails, you need an email account, it is already configured for `gmail` so all which is needed is to provide credentials in `config.json`.
+To send mails, you need an email account, the default configuration is for `gmail`,
+if you need to use another mail server, you should update the code. If you use
+`gmail`, you only need to provide some environment variables:
 
-- `MAIL.NAME`
-- `MAIL.USERNAME`
-- `MAIL.PASSWORD`
+- `EMAIL_NAME`
+- `EMAIL_USERNAME`
+- `EMAIL_PASSWORD`
 
 Why and How I created this project
 ==================================
