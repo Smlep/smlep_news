@@ -1,43 +1,28 @@
 import json
 import requests
-from .weather import Weather
+from .weather import CurrentWeather, DailyWeather, HourlyWeather
 
-with open("config.json", "r") as f:
-    config = json.load(f)
-
-apiKey = config["DEFAULT"]["WEATHER_KEY"]
-base = "http://api.openweathermap.org/data/2.5/"
+base = "https://api.openweathermap.org/data/2.5/onecall"
 
 
-def gather_weathers(city):
-    current = get_weather(city)
-    nexts = get_forecast(city)
-    # nexts.pop(0)
-    weathers = [current]
-    weathers.extend(nexts)
-    return weathers
+def get_weather(lat, lon, api_key, hourly=False, daily=False, lang="en"):
+    exclude = "minutely"
+    if not hourly:
+        exclude += ",hourly"
+    if not daily:
+        exclude += ",daily"
 
-
-def get_weather(city):
-    url = base + "weather?id=" + city
-    url += "&units=metric"
-    url += "&appId=" + apiKey
+    url = "{}?lat={}&lon={}&appid={}&exclude={}&units=metric&lang={}".format(
+        base, lat, lon, api_key, exclude, lang
+    )
 
     r = requests.get(url)
+    r.raise_for_status()
+    jr = r.json()
 
-    return Weather(r.json())
-
-
-def get_forecast(city):
-    url = base + "forecast?id=" + city
-    url += "&units=metric"
-    url += "&appId=" + apiKey
-
-    r = requests.get(url)
-
-    forecasts = []
-    for forecast in r.json()["list"]:
-        forecasts.append(Weather(forecast))
-
-    forecasts = forecasts[:5]
-    return forecasts
+    res = [CurrentWeather(jr["current"])]
+    if hourly:
+        res += [HourlyWeather(j) for j in jr["hourly"]]
+    if daily:
+        res += [DailyWeather(j) for j in jr["daily"]]
+    return res

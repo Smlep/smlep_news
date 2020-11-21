@@ -19,6 +19,9 @@ def link(name, target):
 
 
 def format_weather(lg="en"):
+    raise DeprecationWarning(
+        "Deprecated method, mails are not handled throught this package anymore"
+    )
     res = "{} {}<br>".format("Météo à" if lg == "fr" else "Weather in", city_name)
     suffix = "d'humidité<br>" if lg == "fr" else "humidity<br>"
     weathers = gather_weathers(city_id)
