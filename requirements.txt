@@ -1,3 +1,2 @@
-black
-feedparser
-requests
+feedparser==6.0.2
+requests==2.25.0
