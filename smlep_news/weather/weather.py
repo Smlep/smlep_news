@@ -58,6 +58,7 @@ class DailyWeather(Weather):
         self.sunrise = datetime.fromtimestamp(d["sunrise"])
         self.sunset = datetime.fromtimestamp(d["sunset"])
         self.temp = DailyTemperature(d["temp"])
+        self.feels_like = DailyFeelsLike(d["feels_like"])
         self.pop = d["pop"]
 
 
