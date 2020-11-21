@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+  create:
+    branches:
+      - master
 jobs:
   build-n-publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
