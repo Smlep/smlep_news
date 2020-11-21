@@ -1,8 +1,6 @@
-import json
 import requests
 
 from .product import Product
-from smlep_news.tools import build_list_from_request
 
 
 base = "https://api.producthunt.com/v2"
