@@ -1,4 +1,3 @@
-import json
 import requests
 from .weather import CurrentWeather, DailyWeather, HourlyWeather
 
