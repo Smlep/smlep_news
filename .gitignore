@@ -5,3 +5,4 @@ env/
 smlep_news/config.json
 *.egg-info/
 *.egg
+.env

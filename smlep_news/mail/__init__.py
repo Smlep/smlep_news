@@ -1,24 +1,25 @@
+import json
+import os
+import smtplib
+
 from datetime import datetime, timedelta
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-import json
-import smtplib
 
 from .format import format_figaro, format_gh, format_guardian, format_ph, format_weather
 
+
 today = datetime.now()
 yesterday = today - timedelta(1)
-
-with open("config.json", "r") as f:
-    config = json.load(f)
+paris_lat, paris_lon = 48.8566, 2.3522
 
 
 def send(target, msg):
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()
-    server.login(config["MAIL"]["USERNAME"], config["MAIL"]["PASSWORD"])
+    server.login(os.environ["EMAIL_USERNAME"], os.environ["EMAIL_PASSWORD"])
 
-    server.sendmail(config["MAIL"]["NAME"], target, msg)
+    server.sendmail(os.environ["EMAIL_NAME"], target, msg)
     server.quit()
 
 
@@ -26,14 +27,19 @@ def prepare_mail(target, size, lg="en"):
     subject = "SmlepNews on " + today.strftime("%Y-%m-%d")
 
     msg = MIMEMultipart()
-    msg["From"] = config["MAIL"]["USERNAME"]
+    msg["From"] = os.environ["EMAIL_USERNAME"]
     msg["To"] = target
     msg["Subject"] = subject
     msg["Charset"] = "UTF-8"
     msg["Content-Type"] = "text/plain; charset=UTF-8"
 
     body = ""
-    body += format_weather(lg)
+    body += format_weather(
+        os.environ.get("WEATHER_LAT", paris_lat),
+        os.environ.get("WEATHER_LON", paris_lon),
+        size,
+        lg,
+    )
     body += "<br>"
     body += format_ph(size, lg)
     body += "<br>"

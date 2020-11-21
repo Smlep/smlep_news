@@ -1,11 +1,13 @@
+import os
+
 from datetime import datetime, timedelta
 
-from figaro import get_figaro_articles
-from github import get_trending_repos, Repository
-from guardian import get_recent_random_articles
-from product_hunt import get_top_scores, Product
-from tools import build_list_from_request
-from weather import gather_weathers
+from smlep_news.figaro import get_figaro_articles
+from smlep_news.github import get_trending_repos
+from smlep_news.guardian import get_recent_articles
+from smlep_news.product_hunt import get_top_products
+from smlep_news.tools import build_list_from_request
+from smlep_news.weather import get_weather
 
 today = datetime.now()
 yesterday = today - timedelta(1)
@@ -18,18 +20,15 @@ def link(name, target):
     return '<a href="' + target + '"> ' + name + "</a>"
 
 
-def format_weather(lg="en"):
-    raise DeprecationWarning(
-        "Deprecated method, mails are not handled throught this package anymore"
-    )
+def format_weather(lat, lon, size, lg="en"):
     res = "{} {}<br>".format("Météo à" if lg == "fr" else "Weather in", city_name)
     suffix = "d'humidité<br>" if lg == "fr" else "humidity<br>"
-    weathers = gather_weathers(city_id)
-    for weather in weathers:
+    weathers = get_weather(lat, lon, os.environ["WEATHER_KEY"], hourly=True, lang=lg)
+    for weather in weathers[:size]:
         res += "{}: {}°C / {} / {}% {}".format(
-            weather.time[10:-3].replace(":", "h"),
+            weather.time.strftime("%Hh%M"),
             weather.temperature,
-            weather.conditions[0].description,
+            weather.condition.description,
             weather.humidity,
             suffix,
         )
@@ -37,20 +36,13 @@ def format_weather(lg="en"):
 
 
 def format_ph(size, lg="en"):
-    raise DeprecationWarning(
-        "Deprecated method, mails are not handled throught this package anymore"
-    )
     res = ""
     if lg == "en":
         res += "Top products from yesterday<br>"
     if lg == "fr":
         res += "Meilleurs produits d'hier<br>"
-    products = build_list_from_request(
-        get_top_scores(
-            yesterday.strftime("%Y"), yesterday.strftime("%m"), yesterday.strftime("%d")
-        ),
-        "posts",
-        Product,
+    products = get_top_products(
+        os.environ["PH_CLIENT_ID"], os.environ["PH_CLIENT_SECRET"], yesterday, size
     )
     for product in products[:size]:
         res += link(product.name, product.url) + ": "
@@ -76,12 +68,9 @@ def format_gh(size, lg="en"):
 
 
 def format_guardian(size):
-    raise DeprecationWarning(
-        "Deprecated method, mails are not handled throught this package anymore"
-    )
     res = "Recent news<br>"
-    articles = get_recent_random_articles(size)
-    for article in articles:
+    articles = get_recent_articles(os.environ["GUARDIAN_KEY"], yesterday)
+    for article in articles[:size]:
         res += link(article.title, article.url) + "<br>"
     return res
 

@@ -20,7 +20,7 @@ def get_access_token(client_id, client_secret):
     return r.json()["access_token"]
 
 
-def get_top_scores(client_id, client_secret, from_date, count=10):
+def get_top_products(client_id, client_secret, from_date, count=10):
     token = get_access_token(client_id, client_secret)
     url = base + "/api/graphql"
     headers = {
