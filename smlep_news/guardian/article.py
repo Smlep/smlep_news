@@ -5,7 +5,7 @@ class Article:
         self.section = Section(article_json["sectionId"], article_json["sectionName"])
         self.url = article_json["webUrl"]
 
-    def __str__(self):
+    def __repr__(self):
         res = self.title + "\n"
         res += str(self.section)
         return res

@@ -76,6 +76,9 @@ def format_gh(size, lg="en"):
 
 
 def format_guardian(size):
+    raise DeprecationWarning(
+        "Deprecated method, mails are not handled throught this package anymore"
+    )
     res = "Recent news<br>"
     articles = get_recent_random_articles(size)
     for article in articles:
