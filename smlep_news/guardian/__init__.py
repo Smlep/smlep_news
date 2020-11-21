@@ -1,7 +1,4 @@
-import json
 import requests
-import secrets
-from datetime import datetime, timedelta
 from .article import Article
 
 base = "https://content.guardianapis.com/world"
