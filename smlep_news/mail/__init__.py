@@ -12,6 +12,7 @@ from .format import format_figaro, format_gh, format_guardian, format_ph, format
 today = datetime.now()
 yesterday = today - timedelta(1)
 paris_lat, paris_lon = 48.8566, 2.3522
+paris_name = "Paris"
 
 
 def send(target, msg):
@@ -35,6 +36,7 @@ def prepare_mail(target, size, lg="en"):
 
     body = ""
     body += format_weather(
+        os.environ.get("WEATHER_CITY", paris_name),
         os.environ.get("WEATHER_LAT", paris_lat),
         os.environ.get("WEATHER_LON", paris_lon),
         size,
