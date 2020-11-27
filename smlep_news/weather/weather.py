@@ -4,7 +4,6 @@ from datetime import datetime
 
 icon_static_url = "http://openweathermap.org/img/wn/{}@2x.png"
 
-# Add class for Daily or Hourly
 class Weather:
     def __init__(self, d):
         self.time = datetime.fromtimestamp(d["dt"])
