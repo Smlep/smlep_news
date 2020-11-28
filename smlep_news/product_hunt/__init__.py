@@ -31,7 +31,7 @@ def get_top_products(client_id, client_secret, from_date, count=10):
     }
     # .format() does not handles well {} in strings, falling back to %s
     body = {
-        "query": 'query { posts( first: %s postedAfter: "%s" ) {   edges {    node {  id  name description tagline url votesCount }  } } } '
+        "query": 'query { posts( first: %s postedAfter: "%s" order: VOTES) {   edges {    node {  id  name description tagline url votesCount }  } } } '
         % (count, from_date.strftime("%Y-%m-%dT%H:%M:%S.%f%z"))
     }
 
