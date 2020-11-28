@@ -20,7 +20,7 @@ Currently the gathered news are the following:
 The package can be installed with:
 
 ```
-pip install smlep_news
+pip install smlep-news
 ```
 
 Architecture
