@@ -12,15 +12,12 @@ from smlep_news.weather import get_weather
 today = datetime.now()
 yesterday = today - timedelta(1)
 
-city_name = "Paris"
-city_id = "6455259"
-
 
 def link(name, target):
     return '<a href="' + target + '"> ' + name + "</a>"
 
 
-def format_weather(lat, lon, size, lg="en"):
+def format_weather(city_name, lat, lon, size, lg="en"):
     res = "{} {}<br>".format("Météo à" if lg == "fr" else "Weather in", city_name)
     suffix = "d'humidité<br>" if lg == "fr" else "humidity<br>"
     weathers = get_weather(lat, lon, os.environ["WEATHER_KEY"], hourly=True, lang=lg)

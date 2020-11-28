@@ -4,7 +4,7 @@ from datetime import datetime
 
 icon_static_url = "http://openweathermap.org/img/wn/{}@2x.png"
 
-# Add class for Daily or Hourly
+
 class Weather:
     def __init__(self, d):
         self.time = datetime.fromtimestamp(d["dt"])
@@ -24,12 +24,8 @@ class Weather:
         self.condition = conditions[0]
 
     def __str__(self):
-        return (
-            self.conditions[0].description
-            + " ("
-            + str(self.temperature)
-            + "°C) at "
-            + self.time
+        return "{} ({}°C) at {}".format(
+            self.condition.description, self.temperature, self.time
         )
 
     def __repr__(self):
@@ -57,7 +53,7 @@ class DailyWeather(Weather):
         super().__init__(d)
         self.sunrise = datetime.fromtimestamp(d["sunrise"])
         self.sunset = datetime.fromtimestamp(d["sunset"])
-        self.temp = DailyTemperature(d["temp"])
+        self.temperature = DailyTemperature(d["temp"])
         self.feels_like = DailyFeelsLike(d["feels_like"])
         self.pop = d["pop"]
 
