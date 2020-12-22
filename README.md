@@ -18,7 +18,7 @@ Currently the gathered news are the following:
 - News from [Guardian](https://www.theguardian.com)
 - News from [Le Figaro](http://www.lefigaro.fr) (in French)
 - News from the [New York Times](https://www.nytimes.com/)
-- Exchange rates from [exchangeratesapi.io/](https://exchangeratesapi.io/)
+- Exchange rates from [exchangeratesapi.io](https://exchangeratesapi.io/)
 - Stories from [Medium](https://medium.com)
 
 The package can be installed through the official pypi repository with:
@@ -37,7 +37,7 @@ This project is divided in different packages:
 - `github`: fetches trending repos from [GitHub](https://github.com).
 - `guardian`: fetches us news from [Guardian](https://www.theguardian.com).
 - `mail`: calls gatherer from the other packages, format their content and send mail.
-- `medium`: extract top stories from a specific [Medium](https://medium.com) topic.
+- `medium`: extracts top stories from a specific [Medium](https://medium.com) topic.
 - `nytimes`: fetches news from the [New York Times](https://www.nytimes.com/)
 - `product_hunt`: fetches top products from [Product Hunt](https://www.producthunt.com).
 - `runner`: gathers e-mail addresses from a database and send the gathered news through e-mails. This package configuration is relative to my own setup, if you want to use this program, you should bring changes to this package (or not use it).
