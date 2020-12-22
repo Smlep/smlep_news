@@ -15,9 +15,13 @@ Currently the gathered news are the following:
 - Weather from [Open Weather Map](https://openweathermap.org)
 - Top products from [Product Hunt](https://www.producthunt.com)
 - Trending repos from [GitHub](https://github.com)
-- News from [Guardian](https://www.theguardian.com) or [Le Figaro](http://www.lefigaro.fr) depending on the language you decide to use (`en` or `fr`)
+- News from [Guardian](https://www.theguardian.com)
+- News from [Le Figaro](http://www.lefigaro.fr) (in French)
+- News from the [New York Times](https://www.nytimes.com/)
+- Exchange rates from [exchangeratesapi.io/](https://exchangeratesapi.io/)
+- Stories from [Medium](https://medium.com)
 
-The package can be installed with:
+The package can be installed through the official pypi repository with:
 
 ```
 pip install smlep-news
@@ -28,10 +32,13 @@ Architecture
 
 This project is divided in different packages:
 
+- `exchangerates`: fetches currency exchange rates from [exchangeratesapi.io/](https://exchangeratesapi.io/).
 - `figaro`: fetches french news from [Le Figaro](http://www.lefigaro.fr).
 - `github`: fetches trending repos from [GitHub](https://github.com).
 - `guardian`: fetches us news from [Guardian](https://www.theguardian.com).
 - `mail`: calls gatherer from the other packages, format their content and send mail.
+- `medium`: extract top stories from a specific [Medium](https://medium.com) topic.
+- `nytimes`: fetches news from the [New York Times](https://www.nytimes.com/)
 - `product_hunt`: fetches top products from [Product Hunt](https://www.producthunt.com).
 - `runner`: gathers e-mail addresses from a database and send the gathered news through e-mails. This package configuration is relative to my own setup, if you want to use this program, you should bring changes to this package (or not use it).
 - `weather`: fetches weather from [Open Weather Map](https://openweathermap.org). To choose the city you have to provide an ID, a list of city IDs can be downloaded [here](http://bulk.openweathermap.org/sample/).
@@ -45,8 +52,9 @@ You'll have to provide API Keys in environment variables:
 - `PH_CLIENT_ID`/`PH_CLIENT_SECRET`: Product Hunt Api Client Id/Client Secret.
 - `WEATHER_KEY`: Open Weather Map Api Key.
 - `GUARDIAN_KEY`: Guardian Api Key.
+- `NYT_KEY`: New york times Api key
 
-All these keys can be obtained freely.
+All these keys can be obtained freely on their respective websites.
 
 To send mails, you need an email account, the default configuration is for `gmail`,
 if you need to use another mail server, you should update the code. If you use
@@ -56,7 +64,7 @@ if you need to use another mail server, you should update the code. If you use
 - `EMAIL_USERNAME`
 - `EMAIL_PASSWORD`
 
-Why and How I created this project
+Why and how I created this project
 ==================================
 
 I wrote a small post about this project on my [GitHub Page](https://smlep.github.io), you can read it [here](https://smlep.github.io/jekyll/update/2019/02/01/smlepnews.html).
