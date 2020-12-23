@@ -1,4 +1,5 @@
 import feedparser
+import time
 
 from datetime import datetime
 from time import mktime
@@ -26,7 +27,16 @@ class Feed:
         return "{} feed on {}".format(self.topic, self.updated)
 
 
-def get_top_topic_stories(topic: str):
-    stories = feedparser.parse("https://medium.com/feed/topic/{}".format(topic))
+def get_top_topic_stories(topic: str, retry_count=1, retry_interval=0):
+    """
+    When querying to many topics one after the other, the requests might start failing.
+    To fix this, increase the retry_count and retry_interval
+    """
+    for i in range(retry_count):
+        stories = feedparser.parse("https://medium.com/feed/topic/{}".format(topic))
+
+        if not stories.bozo:
+            break
+        time.sleep(retry_interval)
 
     return Feed(topic, stories)
