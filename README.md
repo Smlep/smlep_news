@@ -1,3 +1,4 @@
+[![PyPI version](https://badge.fury.io/py/smlep-news.svg)](https://badge.fury.io/py/smlep-news)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Maintainability](https://api.codeclimate.com/v1/badges/0a7fa5b1833812224f02/maintainability)](https://codeclimate.com/github/Smlep/smlepNews/maintainability)
 
