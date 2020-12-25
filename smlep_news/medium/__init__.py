@@ -1,4 +1,7 @@
 import feedparser
+import json
+import logging
+import os
 import requests
 import time
 
@@ -53,7 +56,8 @@ def build_topics_list():
     This function relies on scrapping the topics page, meaning it is not robust
     and might stop working.
 
-    To avoid calling it every time, a list of topics is stores in medium/topics.json
+    To avoid calling it every time, a list of topics is
+    stored in medium/topics.json
     """
     response = requests.get(topics_page_url)
     soup = BeautifulSoup(response.content, "html.parser")
@@ -63,3 +67,32 @@ def build_topics_list():
         for t in topics_links
         if t.text
     }
+
+
+def check_topics_health(topics: dict, retry_count=3, retry_interval=3):
+    """
+    Checks that a topic list is healthy
+    """
+    all_healthy = True
+    for topic, v in topics.items():
+        print("Checking {} health".format(topic))
+        try:
+            get_top_topic_stories(
+                v["short_name"], retry_count=retry_count, retry_interval=retry_interval
+            )
+        except Exception as e:
+            all_healthy = False
+            logging.error(
+                "%s topic with values %s failed: %s(%s)",
+                topic,
+                v,
+                e.__class__.__name__,
+                e,
+            )
+
+    return all_healthy
+
+
+def get_saved_topics():
+    with open(os.path.join(os.path.dirname(__file__), "topics.json")) as f:
+        return json.load(f)
