@@ -21,6 +21,7 @@ Currently the gathered news are the following:
 - News from the [New York Times](https://www.nytimes.com/)
 - Exchange rates from [exchangeratesapi.io](https://exchangeratesapi.io/)
 - Stories from [Medium](https://medium.com)
+- Stories from [Hacker News](https://news.ycombinator.com/)
 
 The package can be installed through the official pypi repository with:
 
@@ -37,6 +38,7 @@ This project is divided in different packages:
 - `figaro`: fetches french news from [Le Figaro](http://www.lefigaro.fr).
 - `github`: fetches trending repos from [GitHub](https://github.com).
 - `guardian`: fetches us news from [Guardian](https://www.theguardian.com).
+- `hackernews`: fetches top stories list and stories details from [Hacker News](https://news.ycombinator.com/).
 - `mail`: calls gatherer from the other packages, format their content and send mail.
 - `medium`: extracts top stories from a specific [Medium](https://medium.com) topic.
 - `nytimes`: fetches news from the [New York Times](https://www.nytimes.com/)
