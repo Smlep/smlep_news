@@ -11,7 +11,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),
     python_requires=">=3.7",
-    install_requires=["beautifulsoup4==4.9.3", "feedparser==6.0.2", "requests==2.25.1"],
+    install_requires=["beautifulsoup4==4.9.3", "feedparser==6.0.2", "requests==2.31.0"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
